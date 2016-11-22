@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Wheel of Fortune</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="fortune.js"></script>
+		<script src="fortune2.js"></script>
+			<link rel="stylesheet" type="text/css" href="fortune.css">
+	</head>
+	<body>
+		
+		<div class="wrapper">
+			<img id="wheel" src="wheel2.jpg">
+			
+			<div type="text" id="hint">
+				<h1></h1>
+			</div>
+			<div class="letters-wrapper">
+				<div class="box" id="box0">
+					<h1></h1>
+				</div>
+				<div class="box">
+					<h1 id='box1'></h1>					
+				</div>
+				<div class="box" id="box2">
+					<h1></h1>
+				</div>
+				<div class="box" id="box3">
+					<h1></h1>
+				</div>
+				<div class="box" id="box4">
+					<h1></h1>
+				</div>
+				<div class="box" id="box5">
+					<h1></h1>
+				</div>
+				<div class="box" id="box6">
+					<h1></h1>
+				</div>	
+			</div>
+		</div>
+		<button id="next">Next word</button>	
+		
+		<div class="button-wrapper">
+			<div class="button" id = "circle1">
+			</div>
+			<div class="button" id = "circle2">
+			</div>
+			<div class="button" id = "circle3">
+			</div>
+		</div>
+	</body>
+		<div id="footer">
+			<div type="text" id="instruct">To start game, click the "Next word" button. Then use your keyboard to select lower case letters. After 3 wrong guesses, game over.
+			</div>
+		</div>	
+</html>
