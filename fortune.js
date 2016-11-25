@@ -1,6 +1,7 @@
 
 function Game(){
  this.solution;
+ this.solvable = true;
  this.wrongGuesses = 0;
  this.answers = [];
  this.addanswer = function(answer){
@@ -31,7 +32,7 @@ var trout = new Answers("rainbow", "Species of trout");
 var football = new Answers("packers", "Football team")
 var car = new Answers("ferrari", "Car manufacturer");
 var artist = new Answers("vangogh", "Artist");
-var basketball = new Answers("thunnder", "Basketball team")
+var basketball = new Answers("thunder", "Basketball team")
 var city = new Answers("belfast", "N. Ireland capital city");
 var shoe = new Answers("salomon", "Shoe brand")
 var game = new Game();
@@ -57,6 +58,7 @@ $(document).ready(function(){
    //reset wrong guesses
    game.wrongGuesses = 0;
 
+
 // returns any "wrong answer" red cirles back to green on the click of next word button
   document.getElementById('circle1').style.backgroundColor = '#00FF00'; 
   document.getElementById('circle2').style.backgroundColor = '#00FF00';
@@ -67,10 +69,16 @@ $(document).ready(function(){
 // upon keypress changes from charcode to letters
 // as user chooses incorrect letters, one of the green circles turns red until all 3 are red 
 $(document).keypress(function(e) {
+  if(this.solvable == false){
+    alert("Game over. Press Next Word to play again.");
+    return;
+  }
+
   var letter = String.fromCharCode(e.keyCode);
   if(solution.search(letter) == -1) {
     game.wrongGuesses += 1;
     document.getElementById('circle' + game.wrongGuesses).style.backgroundColor = '#FF0000';
+     
   }else{
     //get rid of the letter and all the duplicates.
     while(solution.search(letter) != -1){
@@ -79,13 +87,32 @@ $(document).keypress(function(e) {
     document.getElementsByTagName('h1')[index].innerText = letter;
     }
   }
+
+  if(game.wrongGuesses == 3){
+    this.solvable = false;
+    alert("Game Over, you lost");
+  }
+  if(solution == "#######"){
+    this.solvable = false;
+    alert("Game Over, you Won");
+  }
+  
 });
 
 function setCharAt(str,index,chr) {
   if(index > str.length-1) return str;
   return str.substr(0,index) + chr + str.substr(index+1);
 }
-
+ 
+function endGame(){
+  if(game.wrongGuesses == 3) alert("Three wrong guesses, game over");
+    $("#hint").text(game.randomanswer().hint);
+      for (var i = 0; i<9; i++) {
+      document.getElementsByTagName('h1')[i].innerText = "";
+   }
+   //reset wrong guesses
+   game.wrongGuesses = 0;
+}
 
 
 
