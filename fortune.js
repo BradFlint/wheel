@@ -26,15 +26,24 @@ function Answers(answer,hint){
 
 // variables of the word answers and their hint
 
-var president = new Answers("kennedy", "U.S. president");
-var baseball = new Answers("marlins", "Baseball team");
+var president = new Answers("kennedy", "Former U.S. president");
+var baseball = new Answers("marlins", "Professional Baseball team");
 var trout = new Answers("rainbow", "Species of trout");
-var football = new Answers("packers", "Football team")
+var football = new Answers("packers", "Professional Football team");
 var car = new Answers("ferrari", "Car manufacturer");
 var artist = new Answers("vangogh", "Artist");
-var basketball = new Answers("thunder", "Basketball team")
+var basketball = new Answers("thunder", "Professional Basketball team");
 var city = new Answers("belfast", "N. Ireland capital city");
-var shoe = new Answers("salomon", "Shoe brand")
+var shoe = new Answers("salomon", "Shoe brand");
+var state = new Answers("atlanta", "Southern state capital city");
+var animal = new Answers("grizzly", "Large N. American mammal");
+var state2 = new Answers("olympia", "N.Western state capital city");
+var ocean = new Answers("octopus", "Ocean creature");
+var ring = new Answers("raccoon", "Ring-tailed animal");
+var cold = new Answers("penguin", "Animal found in artic");
+var soccer = new Answers("renaldo", "Famous soccer player");
+var music = new Answers("beatles", "Rock band");
+var music2 = new Answers("nirvana", "90's grundge band");
 var game = new Game();
 
 game.addanswer(president);
@@ -46,20 +55,30 @@ game.addanswer(basketball);
 game.addanswer(car);
 game.addanswer(city);
 game.addanswer(shoe);
+game.addanswer(state);
+game.addanswer(animal);
+game.addanswer(state2);
+game.addanswer(ocean);
+game.addanswer(ring);
+game.addanswer(cold);
+game.addanswer(soccer);
+game.addanswer(music);
+game.addanswer(music2);
+
  
 // clicking the Next word button gets the random word and hint, removes any letters from previous round
 $(document).ready(function(){
   $("#next").click(function(){
     $("#hint").text(game.randomanswer().hint);
-    // remove existing letters
+   // remove existing letters and result (correct/incorrect)
   for (var i = 0; i<7; i++) {
     document.getElementsByTagName('h1')[i].innerText = "";
+    document.getElementById('result').innerText = "";
    }
    //reset wrong guesses
    game.wrongGuesses = 0;
-
-
-// returns any "wrong answer" red cirles back to green on the click of next word button
+   game.solvable = true;
+   // returns any "wrong answer" red cirles back to green on the click of next word button
   document.getElementById('circle1').style.backgroundColor = '#00FF00'; 
   document.getElementById('circle2').style.backgroundColor = '#00FF00';
   document.getElementById('circle3').style.backgroundColor = '#00FF00';
@@ -70,7 +89,7 @@ $(document).ready(function(){
 // as user chooses incorrect letters, one of the green circles turns red until all 3 are red 
 $(document).keypress(function(e) {
   if(this.solvable == false){
-    alert("Game over. Press Next Word to play again.");
+    alert("Press the Next Word button to play again.");
     return;
   }
 
@@ -87,16 +106,15 @@ $(document).keypress(function(e) {
     document.getElementsByTagName('h1')[index].innerText = letter;
     }
   }
-
+  // displays correct or incorrect in the results field
   if(game.wrongGuesses == 3){
     this.solvable = false;
-    alert("Game Over, you lost");
+    document.getElementById('result').innerText = "Incorrect!";
   }
   if(solution == "#######"){
     this.solvable = false;
-    alert("Game Over, you Won");
+    document.getElementById('result').innerText = "Correct!";
   }
-  
 });
 
 function setCharAt(str,index,chr) {
@@ -104,15 +122,6 @@ function setCharAt(str,index,chr) {
   return str.substr(0,index) + chr + str.substr(index+1);
 }
  
-function endGame(){
-  if(game.wrongGuesses == 3) alert("Three wrong guesses, game over");
-    $("#hint").text(game.randomanswer().hint);
-      for (var i = 0; i<9; i++) {
-      document.getElementsByTagName('h1')[i].innerText = "";
-   }
-   //reset wrong guesses
-   game.wrongGuesses = 0;
-}
 
 
 
