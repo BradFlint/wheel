@@ -12,7 +12,7 @@ function Game(){
  this.randomanswer = function(){
   var counter = 1;
   var num = Math.floor(Math.random() * this.answers.length);
-  solution = this.answers[num].answer;
+  this.solution = this.answers[num].answer;
   return this.answers[num];
  };
 }
@@ -88,31 +88,31 @@ $(document).ready(function(){
 // upon keypress changes from charcode to letters
 // as user chooses incorrect letters, one of the green circles turns red until all 3 are red 
 $(document).keypress(function(e) {
-  if(this.solvable == false){
+  if(game.solvable === false){
     alert("Press the Next Word button to play again.");
     return;
   }
 
   var letter = String.fromCharCode(e.keyCode);
-  if(solution.search(letter) == -1) {
+  if(game.solution.search(letter) == -1) {
     game.wrongGuesses += 1;
     document.getElementById('circle' + game.wrongGuesses).style.backgroundColor = '#FF0000';
      
   }else{
     //get rid of the letter and all the duplicates.
-    while(solution.search(letter) != -1){
-    var index = solution.indexOf(letter);
-    solution = setCharAt(solution, index, '#');
+    while(game.solution.search(letter) != -1){
+    var index = game.solution.indexOf(letter);
+    game.solution = setCharAt(game.solution, index, '#');
     document.getElementsByTagName('h1')[index].innerText = letter;
     }
   }
   // displays correct or incorrect in the results field
-  if(game.wrongGuesses == 3){
-    this.solvable = false;
+  if(game.wrongGuesses === 3){
+    game.solvable = false;
     document.getElementById('result').innerText = "Incorrect!";
   }
-  if(solution == "#######"){
-    this.solvable = false;
+  if(game.solution == "#######"){
+    game.solvable = false;
     document.getElementById('result').innerText = "Correct!";
   }
 });
